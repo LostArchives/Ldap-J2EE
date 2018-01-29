@@ -70,17 +70,16 @@ class ldapUserService {
 
         if ($connection != null) {
 
-            // another time check
-
+            // another time check var
             if(!empty($name) && !empty($surname)){
 
-
-                $dn = "cn=groupname,cn=groups,dc=example,dc=com";
+                $dn = "ou=people,dc=bla,dc=com";
                 $entry['cn'] = $name;
                 $entry['sn'] = $surname;
                 $entry['objectClass'] = 'person';
 
-                ldap_mod_add(l, $dn, $entry);
+                ldap_add($connection, $dn, $entry);
+                echo ldap_error($connection);
             }
 
             $this->ldapConnect->disconnect($connection);
@@ -89,7 +88,5 @@ class ldapUserService {
         }
     }
 }
-
-
 
 ?>

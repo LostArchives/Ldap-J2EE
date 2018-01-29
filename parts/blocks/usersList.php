@@ -1,6 +1,6 @@
 <?php
 
-include_once(dirname(__FILE__, 3) . "class/ldapUser.class.php");
+include_once(dirname(__FILE__, 3) . "/class/ldapUser.class.php");
 
 // getting users data in order to display it
 $users = $ldapUserService->getUsers();

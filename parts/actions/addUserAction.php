@@ -6,8 +6,11 @@
  * Time: 10:06 AM
  */
 
-// retrieving and checking data from add user form
+//getting ldap service
+include_once(dirname(__FILE__, 3) . "/class/ldapUserService.class.php");
+$ldapUserService = ldapUserService::getInstance();
 
+// retrieving and checking data from add user form
 // default empty array
 $errors = array();
 
@@ -27,9 +30,8 @@ if(!empty($errors)){
 }else{
 
     // getting form data
-    $userId = $_POST['userId'];
     $userName = $_POST['userName'];
+    $userSurname = $_POST['userSurname'];
 
-    // TODO check add user parameters (need to add group ?)
-    $ldapService->addUser($userId, $userName);
+    $ldapUserService->addUser($userName, $userName);
 }

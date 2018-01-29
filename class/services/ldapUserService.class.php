@@ -21,6 +21,7 @@ class ldapUserService
     private static $USER_TOP_CLASS = "top";
     private static $USER_PERSON_CLASS = "person";
     private static $USER_INET_CLASS = "inetOrgPerson";
+
     private static $instance;
     private $ldapConnect;
     private $ldapUtil;
@@ -107,6 +108,24 @@ class ldapUserService
             echo "LDAP connection failed..." . ldap_error($connection);
         }
         return $success;
+    }
+
+    public function delUser($uid){
+
+        $connection = $this->ldapConnect->connect();
+
+        if ($connection != null) {
+
+            // build dn with a known uid
+            $dn = $this->ldapUtil->buildUserDnWithUid($uid);
+
+            // delete user by uid
+            ldap_delete($connection, $dn);
+            echo ldap_error($connection);
+
+        }else{
+            echo "LDAP connection failed..." . ldap_error($connection);
+        }
     }
 }
 

@@ -19,18 +19,38 @@ class ldapConnect {
     private $ldapUser = "cn=admin";
     private $ldapPassword = "bla";
 
-    public static function getInstance() : ldapService {
+    public static function getInstance(): ldapConnect
+    {
         if (self::$instance == null) {
-            self::$instance = new ldapService();
+            self::$instance = new ldapConnect();
         }
         return self::$instance;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLdapBaseDn(): string
+    {
+        return $this->ldapBaseDn;
+    }
+
+    public function connect()
+    {
+        $ldapConn = $this->getConnection();
+        $bind = ldap_bind($ldapConn, $this->getBindUser(), $this->ldapPassword);
+        if ($bind)
+            return $ldapConn;
+        else
+            return null;
     }
 
     /**
      * Function to return a ldap connection (null if the connection fails)
      * @return null|resource
      */
-    public function getConnection() {
+    private function getConnection()
+    {
         $ldapconn = ldap_connect($this->ldapHost)
         or die("Could not connect to LDAP server.");
 
@@ -45,6 +65,13 @@ class ldapConnect {
     private function getBindUser() {
         return $this->ldapUser.",".$this->ldapBaseDn;
     }
+
+    public function disconnect($conn)
+    {
+        ldap_unbind($conn);
+        ldap_close($conn);
+    }
+
 }
 
 

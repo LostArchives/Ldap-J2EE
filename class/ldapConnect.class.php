@@ -13,11 +13,15 @@
 
 class ldapConnect {
 
-    private static $instance;
+    private static $instance = null;
     private $ldapHost = "localhost";
     private $ldapBaseDn = "dc=bla,dc=com";
     private $ldapUser = "cn=admin";
     private $ldapPassword = "bla";
+
+    private function __construct()
+    {
+    }
 
     public static function getInstance(): ldapConnect
     {

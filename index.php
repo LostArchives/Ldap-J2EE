@@ -10,9 +10,16 @@
 </head>
 <body>
 
+
+<?php
+    include_once "ldapService.class.php";
+    $ldapService = new ldapService();
+?>
+
 <div class="container-fluid" style="margin-top: 100px;">
 <?php
 
+    // head part of main page
     include 'parts/header.php';
 
     // adding first block

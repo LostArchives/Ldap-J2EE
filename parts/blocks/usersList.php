@@ -21,20 +21,25 @@ $users = ldapUserService::getInstance()->getUsers();
     </thead>
     <tbody>
 
-    <?php
+<?php
     $counter = 0;
+
     foreach ($users as &$user):
+
         $counter++;
-        ?>
+?>
         <tr>
             <th scope="row"><?php echo $counter; ?></th>
             <td><?php echo $user->getSurname(); ?></td>
             <td><?php echo $user->getName(); ?></td>
-            <td><a href="<?php echo './parts/actions/removeUserAction.php?uid='.$user->getUid(); ?>"><button type="button" class="btn btn-danger">Remove</button></a></td>
+            <td>
+                <a href="<?php echo 'http://'.$_SERVER["SERVER_NAME"].'/ldap/index.php?uid='.$user->getUid().'&name='.$user->getName().'&surname='.$user->getSurname(); ?>"><button type="button" class="btn btn-warning">Update</button></a>
+                <a href="<?php echo './parts/actions/removeUserAction.php?uid='.$user->getUid(); ?>"><button type="button" class="btn btn-danger">Remove</button></a>
+            </td>
         </tr>
-        <?php
+<?php
     endforeach;
-    ?>
+?>
 
 
     </tbody>

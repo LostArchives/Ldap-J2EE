@@ -30,7 +30,7 @@ class ldapGroupService
 
     public function getGroups()
     {
-        $ldapConnect
+        //$ldapConnect
     }
 
 

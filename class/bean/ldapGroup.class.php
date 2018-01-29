@@ -9,6 +9,18 @@
 class ldapGroup
 {
     private $name;
+    private $dn;
+
+    /**
+     * ldapGroup constructor.
+     * @param $name
+     * @param $uid
+     */
+    public function __construct($name, $uid)
+    {
+        $this->name = $name;
+        $this->dn = $uid;
+    }
 
     /**
      * @return mixed
@@ -26,7 +38,21 @@ class ldapGroup
         $this->name = $name;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDn()
+    {
+        return $this->dn;
+    }
 
+    /**
+     * @param mixed $uid
+     */
+    public function setDn($dn)
+    {
+        $this->dn = $dn;
+    }
 }
 
 ?>

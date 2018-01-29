@@ -78,6 +78,7 @@ class ldapUserService
      */
     public function addUser($name, $surname)
     {
+        $success = false;
         $connection = $this->ldapConnect->connect();
 
         if ($connection != null) {
@@ -95,8 +96,9 @@ class ldapUserService
 
                 $dn = $this->ldapUtil->buildUserDn($surname, $name);
                 // add data to directory
-                $r = ldap_add($connection, $dn, $info);
-                if (!$r) {
+                $success = ldap_add($connection, $dn, $info);
+
+                if (!$success) {
                     //echo ldap_error($connection);
                 }
             }
@@ -104,6 +106,7 @@ class ldapUserService
         } else {
             echo "LDAP connection failed..." . ldap_error($connection);
         }
+        return $success;
     }
 }
 

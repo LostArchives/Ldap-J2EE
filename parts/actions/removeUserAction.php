@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jbuisine
  * Date: 1/29/18
- * Time: 10:06 AM
+ * Time: 2:18 PM
  */
 
 //getting ldap service
@@ -15,25 +15,20 @@ $ldapUserService = ldapUserService::getInstance();
 $errors = array();
 
 // check data
-if(!isset($_POST['userName'])){
-    $errors = "Please select correct user name";
+if(!isset($_GET['uid'])){
+    $errors = "uid not found";
 }
-if(!isset($_POST['userSurname'])){
-    $errors = "Please select correct user surname";
-}
-
 // check errors
 if(!empty($errors)){
     foreach ($errors as &$error): ?>
         <p style="color:red;"> <?php echo $error ?> </p>
-   <?php endforeach;
+    <?php endforeach;
 }else{
 
     // getting form data
-    $userName = $_POST['userName'];
-    $userSurname = $_POST['userSurname'];
+    $uid = $_GET['uid'];
 
-    $ldapUserService->addUser($userName, $userSurname);
+    $ldapUserService->delUser($uid);
 
     // redirect to home page
     header('location:http://'.$_SERVER['SERVER_NAME'].'/ldap/index.php');

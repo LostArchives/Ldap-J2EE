@@ -18,21 +18,23 @@ class ldapUserService {
 
     private static $USER_TOP_CLASS = "top";
     private static $USER_PERSON_CLASS = "person";
-    private $ldapConnect;
+    private static $USER_INET_CLASS = "inetOrgPerson";
+
     private static $instance;
+    private $ldapConnect;
     private $ldapUtil;
+
+    private function __construct()
+    {
+        $this->ldapConnect = ldapConnect::getInstance();
+        $this->ldapUtil = ldapUtil::getInstance();
+    }
 
     public static function getInstance() : ldapUserService {
         if (self::$instance == null) {
             self::$instance = new ldapUserService();
         }
         return self::$instance;
-    }
-
-    private function __construct()
-    {
-        $this->ldapConnect = ldapConnect::getInstance();
-        $this->ldapUtil = ldapUtil::getInstance();
     }
 
     /**
@@ -44,17 +46,18 @@ class ldapUserService {
         $domainDn = ldapConnect::$ldapBaseDn;
         if ($connection != null) {
             $search_filter = '(objectClass=person)';
-            $attributes = ["givenname","samaccountname","sn"];
+            $attributes = ["givenname", "samaccountname", "sn", "uid"];
             $result = ldap_search($connection, $domainDn, $search_filter, $attributes);
             if (FALSE !== $result){
                 $entries = ldap_get_entries($connection, $result);
                 for ($cnt = 0; $cnt < count($entries); $cnt++) {
                     $surname = $entries[$cnt]["sn"][0];
                     $name = $entries[$cnt]["givenname"][0];
-                    //if (!empty($surname) && !empty($name)) {
-                        $user = new ldapUser($surname,$name);
+                    $uid = $entries[$cnt]["uid"][0];
+                    if (!empty($surname) && !empty($name)) {
+                        $user = new ldapUser($surname, $name, $uid);
                         $users[] = $user;
-                    //}
+                    }
                 }
             }
             $this->ldapConnect->disconnect($connection);
@@ -84,14 +87,15 @@ class ldapUserService {
                 $info["givenname"] = $name;
                 $info['objectClass'][0] = self::$USER_TOP_CLASS;
                 $info["objectClass"][1] = self::$USER_PERSON_CLASS;
+                $info["objectClass"][2] = self::$USER_INET_CLASS;
 
                 $dn = $this->ldapUtil->buildUserDn($surname, $name);
                 // add data to directory
                 $r = ldap_add($connection, $dn, $info);
-                echo ldap_error($connection);
-                var_dump($r);
+                if (!$r) {
+                    //echo ldap_error($connection);
+                }
             }
-
             $this->ldapConnect->disconnect($connection);
         } else {
             echo "LDAP connection failed..." . ldap_error($connection);

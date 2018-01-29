@@ -16,6 +16,7 @@ $users = ldapUserService::getInstance()->getUsers();
         <th scope="col">#</th>
         <th scope="col">Surname</th>
         <th scope="col">Name</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -27,8 +28,9 @@ $users = ldapUserService::getInstance()->getUsers();
         ?>
         <tr>
             <th scope="row"><?php echo $counter; ?></th>
-            <td><?php echo $user->getName(); ?></td>
             <td><?php echo $user->getSurname(); ?></td>
+            <td><?php echo $user->getName(); ?></td>
+            <td><a href="<?php echo './parts/actions/removeUserAction.php?uid='.$user->getUid(); ?>"><button type="button" class="btn btn-danger">Remove</button></a></td>
         </tr>
         <?php
     endforeach;

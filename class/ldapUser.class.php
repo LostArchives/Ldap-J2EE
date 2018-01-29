@@ -10,12 +10,14 @@ class ldapUser {
 
 private $surname;
 private $name;
+    private $uid;
 
 
-    public function __construct($surname,$name)
+    public function __construct($surname, $name, $uid)
     {
         $this->surname = $surname;
         $this->name = $name;
+        $this->uid = $uid;
     }
 
     /**
@@ -49,6 +51,23 @@ private $name;
     {
         $this->name = $name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * @param mixed $uid
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+    }
+
 }
 
 ?>

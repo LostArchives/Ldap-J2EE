@@ -35,14 +35,14 @@ class ldapUserService {
      */
     public function getUsers() {
         $users = array();
-        $ldapConn = $this->ldapConnect->getConnection();
-        $ldapbind = ldap_bind($ldapConn, $this->ldapConnect->getBindUser(), $this->ldapConnect->ldapPassword);
-        if ($ldapbind) {
+        $connection = $this->ldapConnect->connect();
+        $domainDn = $this->ldapConnect->getLdapBaseDn();
+        if ($connection != null) {
             $search_filter = '(objectClass=person)';
             $attributes = ["givenname","samaccountname","sn"];
-            $result = ldap_search($ldapConn, $this->ldapBaseDn, $search_filter, $attributes);
+            $result = ldap_search($connection, $domainDn, $search_filter, $attributes);
             if (FALSE !== $result){
-                $entries = ldap_get_entries($ldapConn, $result);
+                $entries = ldap_get_entries($connection, $result);
                 for ($cnt = 0; $cnt < count($entries); $cnt++) {
                     $surname = $entries[$cnt]["sn"][0];
                     $name = $entries[$cnt]["givenname"][0];
@@ -52,10 +52,9 @@ class ldapUserService {
                     }
                 }
             }
-            ldap_unbind($ldapConn);
-            ldap_close($ldapConn);
+            $this->ldapConnect->disconnect($connection);
         } else {
-            echo "LDAP bind failed...". ldap_error($ldapConn);
+            echo "LDAP connection failed..." . ldap_error($connection);
         }
         return $users;
     }
@@ -67,10 +66,9 @@ class ldapUserService {
      * @param $surname
      */
     public function addUser($name, $surname){
-        $ldapConn = $this->getConnection();
-        $ldapbind = ldap_bind($ldapConn, $this->ldapConnect->getBindUser(), $this->ldapConnect->ldapPassword);
+        $connection = $this->ldapConnect->connect();
 
-        if ($ldapbind) {
+        if ($connection != null) {
 
             // another time check
 
@@ -85,10 +83,9 @@ class ldapUserService {
                 ldap_mod_add(l, $dn, $entry);
             }
 
-            ldap_unbind($ldapConn);
-            ldap_close($ldapConn);
+            $this->ldapConnect->disconnect($connection);
         } else {
-            echo "LDAP bind failed...". ldap_error($ldapConn);
+            echo "LDAP connection failed..." . ldap_error($connection);
         }
     }
 }

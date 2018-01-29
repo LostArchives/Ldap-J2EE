@@ -15,15 +15,15 @@ $ldapUserService = ldapUserService::getInstance();
 $errors = array();
 
 // check data
-if(!isset($_GET['uid'])){
+if (!isset($_GET['uid'])) {
     $errors = "uid not found";
 }
 // check errors
-if(!empty($errors)){
+if (!empty($errors)) {
     foreach ($errors as &$error): ?>
         <p style="color:red;"> <?php echo $error ?> </p>
     <?php endforeach;
-}else{
+} else {
 
     // getting form data
     $uid = $_GET['uid'];
@@ -31,5 +31,5 @@ if(!empty($errors)){
     $ldapUserService->delUser($uid);
 
     // redirect to home page
-    header('location:http://'.$_SERVER['SERVER_NAME'].'/ldap/index.php');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php');
 }

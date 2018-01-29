@@ -36,5 +36,5 @@ if(!empty($errors)){
     $ldapUserService->addUser($userName, $userSurname);
 
     // redirect to home page
-    header('location:http://'.$_SERVER['SERVER_NAME'].'/ldap/index.php');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php');
 }

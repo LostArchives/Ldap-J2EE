@@ -110,7 +110,8 @@ class ldapUserService
         return $success;
     }
 
-    public function delUser($uid){
+    public function delUser($uid)
+    {
 
         $connection = $this->ldapConnect->connect();
 
@@ -123,7 +124,7 @@ class ldapUserService
             ldap_delete($connection, $dn);
             echo ldap_error($connection);
 
-        }else{
+        } else {
             echo "LDAP connection failed..." . ldap_error($connection);
         }
     }

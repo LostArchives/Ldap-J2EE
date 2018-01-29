@@ -16,8 +16,16 @@ include_once("ldapConnect.class.php");
 class ldapUserService {
 
     private $ldapConnect;
+    private static $instance;
 
-    public function __construct()
+    public static function getInstance() : ldapUserService {
+        if (self::$instance == null) {
+            self::$instance = new ldapUserService();
+        }
+        return self::$instance;
+    }
+
+    private function __construct()
     {
         $this->ldapConnect = ldapConnect::getInstance();
     }
@@ -64,12 +72,18 @@ class ldapUserService {
 
         if ($ldapbind) {
 
-            $dn = "cn=groupname,cn=groups,dc=example,dc=com";
-            $entry['cn'] = $name;
-            $entry['sn'] = $surname;
-            $entry['objectClass'] = 'person';
+            // another time check
 
-            ldap_mod_add(l, $dn, $entry);
+            if(!empty($name) && !empty($surname)){
+
+
+                $dn = "cn=groupname,cn=groups,dc=example,dc=com";
+                $entry['cn'] = $name;
+                $entry['sn'] = $surname;
+                $entry['objectClass'] = 'person';
+
+                ldap_mod_add(l, $dn, $entry);
+            }
 
             ldap_unbind($ldapConn);
             ldap_close($ldapConn);

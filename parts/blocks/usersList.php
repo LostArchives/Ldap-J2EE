@@ -3,7 +3,7 @@
 include_once(dirname(__FILE__, 3) . "class/ldapUser.class.php");
 
 // getting users data in order to display it
-$users = $ldapService->getUsers();
+$users = $ldapUserService->getUsers();
 
 ?>
 

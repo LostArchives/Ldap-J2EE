@@ -13,9 +13,9 @@
 
 class ldapConnect {
 
+    public static $ldapBaseDn = "dc=bla,dc=com";
     private static $instance = null;
     private $ldapHost = "localhost";
-    private $ldapBaseDn = "dc=bla,dc=com";
     private $ldapUser = "cn=admin";
     private $ldapPassword = "bla";
 
@@ -31,13 +31,6 @@ class ldapConnect {
         return self::$instance;
     }
 
-    /**
-     * @return string
-     */
-    public function getLdapBaseDn(): string
-    {
-        return $this->ldapBaseDn;
-    }
 
     public function connect()
     {
@@ -60,14 +53,14 @@ class ldapConnect {
 
         if ($ldapconn) {
 
-            ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+            ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3); // To be able to bind
             ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0); // To be able to do search query
         }
         return $ldapconn;
     }
 
     private function getBindUser() {
-        return $this->ldapUser.",".$this->ldapBaseDn;
+        return $this->ldapUser . "," . self::$ldapBaseDn;
     }
 
     public function disconnect($conn)

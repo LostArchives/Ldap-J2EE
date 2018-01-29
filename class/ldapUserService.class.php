@@ -12,14 +12,18 @@
  */
 include_once("ldapUser.class.php");
 include_once("ldapConnect.class.php");
+include_once("ldapUtil.class.php");
 
 class ldapUserService {
 
+    private static $USER_OBJECT_CLASS = "person";
     private $ldapConnect;
+    private $ldapUtil;
 
     public function __construct()
     {
         $this->ldapConnect = ldapConnect::getInstance();
+        $this->ldapUtil = ldapUtil::getInstance();
     }
 
     /**
@@ -28,7 +32,7 @@ class ldapUserService {
     public function getUsers() {
         $users = array();
         $connection = $this->ldapConnect->connect();
-        $domainDn = $this->ldapConnect->getLdapBaseDn();
+        $domainDn = ldapConnect::$ldapBaseDn;
         if ($connection != null) {
             $search_filter = '(objectClass=person)';
             $attributes = ["givenname","samaccountname","sn"];
@@ -62,12 +66,13 @@ class ldapUserService {
 
         if ($connection != null) {
 
-            $dn = "cn=groupname,cn=groups,dc=example,dc=com";
-            $entry['cn'] = $name;
-            $entry['sn'] = $surname;
-            $entry['objectClass'] = 'person';
+            $info["cn"] = $name . " " . $surname;
+            $info["sn"] = $surname;
+            $info["objectClass"] = self::$USER_OBJECT_CLASS;
 
-            ldap_mod_add(l, $dn, $entry);
+            $dn = $this->ldapUtil->buildUserDn($surname, $name);
+            // add data to directory
+            $r = ldap_add($connection, $dn, $info);
 
             $this->ldapConnect->disconnect($connection);
         } else {

@@ -6,6 +6,11 @@
  * Date: 29/01/2018
  * Time: 11:41
  */
+
+/**
+ * Class ldapUtil
+ * Util class for ldap project
+ */
 class ldapUtil
 {
 
@@ -21,6 +26,11 @@ class ldapUtil
             self::$instance = new ldapUtil();
         }
         return self::$instance;
+    }
+
+    public function buildUserDn($surname, $name)
+    {
+        return "cn=" . $surname . " " . $name . ",ou=people," . ldapConnect::$ldapBaseDn;
     }
 
 

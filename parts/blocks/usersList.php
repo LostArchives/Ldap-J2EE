@@ -1,9 +1,10 @@
 <?php
 
 include_once(dirname(__FILE__, 3) . "/class/ldapUser.class.php");
+include_once(dirname(__FILE__, 3) . "/class/ldapUserService.class.php");
 
 // getting users data in order to display it
-$users = $ldapUserService->getUsers();
+$users = ldapUserService::getInstance()->getUsers();
 
 ?>
 
@@ -26,8 +27,8 @@ $users = $ldapUserService->getUsers();
         ?>
         <tr>
             <th scope="row"><?php echo $counter; ?></th>
-            <td><?php echo $user->getName(); ?></td>
             <td><?php echo $user->getSurname(); ?></td>
+            <td><?php echo $user->getName(); ?></td>
         </tr>
         <?php
     endforeach;

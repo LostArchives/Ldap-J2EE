@@ -11,40 +11,15 @@
  * A singleton class to interact with OpenLdap active diretory
  */
 include_once("ldapUser.class.php");
+include_once("ldapConnect.class.php");
 
-class ldapService {
+class ldapUserService {
 
-    private static $instance;
-    private $ldapHost = "localhost";
-    private $ldapBaseDn = "dc=bla,dc=com";
-    private $ldapUser = "cn=admin";
-    private $ldapPassword = "bla";
+    private $ldapConnect;
 
-    public static function getInstance() : ldapService {
-        if (self::$instance == null) {
-            self::$instance = new ldapService();
-        }
-        return self::$instance;
-    }
-
-    /**
-     * Function to return a ldap connection (null if the connection fails)
-     * @return null|resource
-     */
-    public function getConnection() {
-        $ldapconn = ldap_connect($this->ldapHost)
-        or die("Could not connect to LDAP server.");
-
-        if ($ldapconn) {
-
-            ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
-            ldap_set_option($ldapconn, LDAP_OPT_REFERRALS, 0); // To be able to do search query
-        }
-        return $ldapconn;
-    }
-
-    private function getBindUser() {
-        return $this->ldapUser.",".$this->ldapBaseDn;
+    public function __construct()
+    {
+        $this->ldapConnect = ldapConnect::getInstance();
     }
 
     /**
@@ -52,8 +27,8 @@ class ldapService {
      */
     public function getUsers() {
         $users = array();
-        $ldapConn = $this->getConnection();
-        $ldapbind = ldap_bind($ldapConn, $this->getBindUser(), $this->ldapPassword);
+        $ldapConn = $this->ldapConnect->getConnection();
+        $ldapbind = ldap_bind($ldapConn, $this->ldapConnect->getBindUser(), $this->ldapConnect->ldapPassword);
         if ($ldapbind) {
             $search_filter = '(objectClass=person)';
             $attributes = ["givenname","samaccountname","sn"];
@@ -75,6 +50,32 @@ class ldapService {
             echo "LDAP bind failed...". ldap_error($ldapConn);
         }
         return $users;
+    }
+
+    /**
+     * Service method which add new user
+     *
+     * @param $name
+     * @param $surname
+     */
+    public function addUser($name, $surname){
+        $ldapConn = $this->getConnection();
+        $ldapbind = ldap_bind($ldapConn, $this->ldapConnect->getBindUser(), $this->ldapConnect->ldapPassword);
+
+        if ($ldapbind) {
+
+            $dn = "cn=groupname,cn=groups,dc=example,dc=com";
+            $entry['cn'] = $name;
+            $entry['sn'] = $surname;
+            $entry['objectClass'] = 'person';
+
+            ldap_mod_add(l, $dn, $entry);
+
+            ldap_unbind($ldapConn);
+            ldap_close($ldapConn);
+        } else {
+            echo "LDAP bind failed...". ldap_error($ldapConn);
+        }
     }
 }
 

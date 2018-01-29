@@ -12,7 +12,7 @@
 
 
 <?php
-include_once "class/ldapService.class.php";
+include_once "class/ldapConnect.class.php";
 $ldapService = ldapService::getInstance();
 ?>
 

@@ -33,7 +33,10 @@ class ldapUtil
         return "uid=" . $name[0].$surname . ",ou=people," . ldapConnect::$ldapBaseDn;
     }
 
-
+    public function buildUserDnWithUid($uid)
+    {
+        return "uid=" . $uid . ",ou=people," . ldapConnect::$ldapBaseDn;
+    }
 }
 
 

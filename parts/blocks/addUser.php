@@ -11,16 +11,12 @@
 <!-- Add user form -->
 <form action="../actions/addUserAction.php">
     <div class="form-group">
-        <label for="userId">uId</label>
-        <input type="text" name="userId" class="form-control" id="userId" placeholder="Enter user id">
+        <label for="userName">Name</label>
+        <input type="text" name="userName" class="form-control" id="userName" placeholder="Enter your name">
     </div>
     <div class="form-group">
-        <label for="userFirstname">Firstname</label>
-        <input type="text" name="userFirstname" class="form-control" id="userFirstname" placeholder="Enter your firstname">
-    </div>
-    <div class="form-group">
-        <label for="userLastname">Lastname</label>
-        <input type="text" name="userLastname" class="form-control" id="userLastname" placeholder="Enter your lastname">
+        <label for="userSurname">Surname</label>
+        <input type="text" name="userSurname" class="form-control" id="userSurname" placeholder="Enter your surname">
     </div>
     <div class="form-group">
         <label for="userPassword">Password</label>

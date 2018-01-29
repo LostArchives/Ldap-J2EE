@@ -37,6 +37,11 @@ class ldapUtil
     {
         return "uid=" . $uid . ",ou=people," . ldapConnect::$ldapBaseDn;
     }
+
+    public function buildGroupDn($name)
+    {
+        return "cn=" . $name . ",ou=group," . ldapConnect::$ldapBaseDn;
+    }
 }
 
 

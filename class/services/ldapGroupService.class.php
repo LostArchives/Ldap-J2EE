@@ -9,6 +9,7 @@
 
 include_once(dirname(__FILE__, 2) . "/ldapConnect.class.php");
 include_once(dirname(__FILE__, 2) . "/bean/ldapGroup.class.php");
+include_once(dirname(__FILE__, 2) . "/util/ldapUtil.class.php");
 
 class ldapGroupService
 {
@@ -17,10 +18,12 @@ class ldapGroupService
     private static $GROUP_TOP_CLASS = "top";
     private static $GROUP_POSIX_CLASS = "posixGroup";
     private $ldapConnect;
+    private $ldapUtil;
 
     private function __construct()
     {
         $this->ldapConnect = ldapConnect::getInstance();
+        $this->ldapUtil = ldapUtil::getInstance();
     }
 
     public static function getInstance()
@@ -62,7 +65,7 @@ class ldapGroupService
 
     }
 
-    public function addGroup($name)
+    public function addGroup($name): bool
     {
         $success = false;
         $connection = $this->ldapConnect->connect();
@@ -76,7 +79,7 @@ class ldapGroupService
                 $info['objectClass'][0] = self::$GROUP_TOP_CLASS;
                 $info["objectClass"][1] = self::$GROUP_POSIX_CLASS;
 
-                $dn = "";
+                $dn = $this->ldapUtil->buildGroupDn($name);
                 // add data to directory
                 $success = ldap_add($connection, $dn, $info);
 
@@ -85,6 +88,22 @@ class ldapGroupService
                 }
             }
             $this->ldapConnect->disconnect($connection);
+        } else {
+            echo "LDAP connection failed..." . ldap_error($connection);
+        }
+        return $success;
+    }
+
+    public function delGroup($dn): bool
+    {
+
+        $success = false;
+        $connection = $this->ldapConnect->connect();
+
+        if ($connection != null) {
+            // delete user by uid
+            $success = ldap_delete($connection, $dn);
+            echo ldap_error($connection);
         } else {
             echo "LDAP connection failed..." . ldap_error($connection);
         }

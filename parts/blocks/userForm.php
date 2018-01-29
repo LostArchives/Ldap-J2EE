@@ -7,23 +7,23 @@
  */
 
 
-if(isset($_GET['uid'])){
+if (isset($_GET['uid'])) {
     $uid = htmlspecialchars_decode($_GET['uid']);
 }
-if(isset($_GET['name'])){
+if (isset($_GET['name'])) {
     $name = htmlspecialchars_decode($_GET['name']);
 }
-if(isset($_GET['surname'])){
+if (isset($_GET['surname'])) {
     $surname = htmlspecialchars_decode($_GET['surname']);
 }
 
 ?>
 
 <?php
-    if(!isset($uid)):
+if (!isset($uid)):
 ?>
 
-<!-- Add user form -->
+    <!-- Add user form -->
 <form action="parts/actions/addUserAction.php" method="post">
     <div class="form-group">
         <label for="userName">Name</label>

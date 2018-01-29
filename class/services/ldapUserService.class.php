@@ -150,7 +150,7 @@ class ldapUserService
             // delete user by uid
             $success = ldap_delete($connection, $dn);
 
-        }else{
+        } else {
             echo "LDAP connection failed..." . ldap_error($connection);
         }
 

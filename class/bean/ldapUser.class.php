@@ -1,15 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Valentin
  * Date: 29/01/2018
  * Time: 09:41
  */
+class ldapUser
+{
 
-class ldapUser {
-
-private $surname;
-private $name;
+    private $surname;
+    private $name;
     private $uid;
 
 

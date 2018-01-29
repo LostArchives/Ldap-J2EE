@@ -10,8 +10,8 @@
  * Class ldapService
  * A singleton class to interact with OpenLdap active diretory
  */
-
-class ldapConnect {
+class ldapConnect
+{
 
     public static $ldapBaseDn = "dc=bla,dc=com";
     private static $instance = null;
@@ -59,7 +59,8 @@ class ldapConnect {
         return $ldapconn;
     }
 
-    private function getBindUser() {
+    private function getBindUser()
+    {
         return $this->ldapUser . "," . self::$ldapBaseDn;
     }
 
@@ -70,7 +71,6 @@ class ldapConnect {
     }
 
 }
-
 
 
 ?>

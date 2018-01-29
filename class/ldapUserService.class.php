@@ -16,7 +16,9 @@ include_once("ldapUtil.class.php");
 
 class ldapUserService {
 
-    private static $USER_OBJECT_CLASS = "person";
+    private static $USER_TOP_CLASS = "top";
+    private static $USER_PERSON_CLASS = "person";
+
     private $ldapConnect;
     private static $instance;
     private $ldapUtil;
@@ -50,10 +52,10 @@ class ldapUserService {
                 for ($cnt = 0; $cnt < count($entries); $cnt++) {
                     $surname = $entries[$cnt]["sn"][0];
                     $name = $entries[$cnt]["givenname"][0];
-                    if (!empty($surname) && !empty($name)) {
+                    //if (!empty($surname) && !empty($name)) {
                         $user = new ldapUser($surname,$name);
                         $users[] = $user;
-                    }
+                    //}
                 }
             }
             $this->ldapConnect->disconnect($connection);
@@ -77,13 +79,17 @@ class ldapUserService {
             // another time check var
             if(!empty($name) && !empty($surname)) {
 
+                $info["uid"] = $name[0].$surname;
                 $info["cn"] = $name . " " . $surname;
                 $info["sn"] = $surname;
-                $info["objectClass"] = self::$USER_OBJECT_CLASS;
+                $info["givenname"] = $name;
+                $info['objectClass'][0] = self::$USER_TOP_CLASS;
+                $info["objectClass"][1] = self::$USER_PERSON_CLASS;
 
                 $dn = $this->ldapUtil->buildUserDn($surname, $name);
                 // add data to directory
                 $r = ldap_add($connection, $dn, $info);
+                echo ldap_error($connection);
                 var_dump($r);
             }
 

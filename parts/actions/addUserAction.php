@@ -33,5 +33,5 @@ if(!empty($errors)){
     $userName = $_POST['userName'];
     $userSurname = $_POST['userSurname'];
 
-    $ldapUserService->addUser($userName, $userName);
+    $ldapUserService->addUser($userName, $userSurname);
 }

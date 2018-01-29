@@ -30,7 +30,7 @@ class ldapUtil
 
     public function buildUserDn($surname, $name)
     {
-        return "cn=" . $surname . " " . $name . ",ou=people," . ldapConnect::$ldapBaseDn;
+        return "uid=" . $name[0].$surname . ",ou=people," . ldapConnect::$ldapBaseDn;
     }
 
 

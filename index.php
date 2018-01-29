@@ -10,14 +10,6 @@
 </head>
 <body>
 
-
-<?php
-
-include_once("class/ldapUserService.class.php");
-$ldapUserService = ldapUserService::getInstance();
-
-?>
-
 <div class="container-fluid" style="margin-top: 100px;">
 <!-- head part of main page -->
 <?php include 'parts/header.php'; ?>

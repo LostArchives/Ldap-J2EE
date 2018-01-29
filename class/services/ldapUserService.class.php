@@ -110,8 +110,36 @@ class ldapUserService
         return $success;
     }
 
-    public function delUser($uid){
+    public function updateUser(ldapUser $user){
 
+        $success = false;
+        $connection = $this->ldapConnect->connect();
+
+        if ($connection != null) {
+
+            // update values
+            $info["cn"] = $user->getName() . " " . $user->getSurname();
+            $info["sn"] = $user->getSurname();
+            $info["givenname"] = $user->getName();
+
+            // build dn with a known uid
+            $dn = $this->ldapUtil->buildUserDnWithUid($user->getUid());
+            echo $dn;
+
+            // update user by uid
+            $success = ldap_modify($connection, $dn, $info);
+            echo ldap_error($connection);
+
+        }else{
+            echo "LDAP connection failed..." . ldap_error($connection);
+        }
+
+        return $success;
+    }
+
+    public function delUser($uid) : bool {
+
+        $success = false;
         $connection = $this->ldapConnect->connect();
 
         if ($connection != null) {
@@ -120,12 +148,13 @@ class ldapUserService
             $dn = $this->ldapUtil->buildUserDnWithUid($uid);
 
             // delete user by uid
-            ldap_delete($connection, $dn);
-            echo ldap_error($connection);
+            $success = ldap_delete($connection, $dn);
 
         }else{
             echo "LDAP connection failed..." . ldap_error($connection);
         }
+
+        return $success;
     }
 }
 

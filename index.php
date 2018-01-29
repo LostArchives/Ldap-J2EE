@@ -19,7 +19,7 @@
     <div class="col-4">
 
         <!-- Add form part -->
-        <?php include "parts/blocks/addUser.php"; ?>
+        <?php include "parts/blocks/userForm.php"; ?>
 
     </div>
 

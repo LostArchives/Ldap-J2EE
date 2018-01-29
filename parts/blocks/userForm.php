@@ -46,13 +46,14 @@ if(isset($_GET['surname'])){
     <input type="hidden" name="uid" value="<?php echo $uid; ?>">
     <div class="form-group">
         <label for="userName">Name</label>
-        <input type="text" name="userName" class="form-control" id="userName" placeholder="<?php echo (!empty($name) ? $name : 'Enter '.$uid.' name'); ?>">
+        <input type="text" name="userName" class="form-control" id="userName" value="<?php echo (!empty($name) ? $name : 'Enter '.$uid.' name'); ?>">
     </div>
     <div class="form-group">
         <label for="userSurname">Surname</label>
-        <input type="text" name="userSurname" class="form-control" id="userSurname" placeholder="<?php echo (!empty($surname) ? $surname : 'Enter '.$uid.' surname'); ?>">
+        <input type="text" name="userSurname" class="form-control" id="userSurname" value="<?php echo (!empty($surname) ? $surname : 'Enter '.$uid.' surname'); ?>">
     </div>
-    <button type="submit" class="btn btn-primary">Add user</button>
+    <button type="submit" class="btn btn-primary">Update user</button>
+    <a href="<?php echo 'http://'.$_SERVER["SERVER_NAME"].'/ldap/index.php'; ?>"><button type="button" class="btn btn-info">Reset</button></a>
 </form>
 
 <?php

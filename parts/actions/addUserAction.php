@@ -7,7 +7,7 @@
  */
 
 //getting ldap service
-include_once(dirname(__FILE__, 3) . "/class/ldapUserService.class.php");
+include_once(dirname(__FILE__, 3) . "/class/services/ldapUserService.class.php");
 $ldapUserService = ldapUserService::getInstance();
 
 // retrieving and checking data from add user form

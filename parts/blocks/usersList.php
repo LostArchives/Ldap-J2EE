@@ -1,7 +1,6 @@
-
 <?php
 
-include "ldapUser.class.php";
+include_once(dirname(__FILE__, 3) . "class/ldapUser.class.php");
 
 // getting users data in order to display it
 $users = $ldapService->getUsers();
@@ -21,14 +20,19 @@ $users = $ldapService->getUsers();
     <tbody>
 
     <?php
-
-        $counter = 0;
-        foreach ($users as &$user) {
-            echo htmlspecialchars('<th scope="row">'.++$counter.'</th>');
-            echo htmlspecialchars('<td>'.$user->getName().'</td>');
-            echo htmlspecialchars('<td>'.$user->getSurname().'</td>');
-        }
+    $counter = 0;
+    foreach ($users as &$user):
+        $counter++;
+        ?>
+        <tr>
+            <th scope="row"><?php echo $counter; ?></th>
+            <td><?php echo $user->getName(); ?></td>
+            <td><?php echo $user->getSurname(); ?></td>
+        </tr>
+        <?php
+    endforeach;
     ?>
+
 
     </tbody>
 </table>

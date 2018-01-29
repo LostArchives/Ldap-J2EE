@@ -12,8 +12,8 @@
 
 
 <?php
-    include_once "ldapService.class.php";
-    $ldapService = new ldapService();
+include_once "class/ldapService.class.php";
+$ldapService = ldapService::getInstance();
 ?>
 
 <div class="container-fluid" style="margin-top: 100px;">
@@ -33,7 +33,7 @@
     <div class="col-8">
 
         <!-- users list part -->
-        <?php include "parts/blocks/usersList.php.php"; ?>
+        <?php include "parts/blocks/usersList.php"; ?>
 
     </div>
 </div>

@@ -13,31 +13,41 @@
 
 <?php
 
-include_once("class/ldapUserService.class.php");
+include_once("class/services/ldapUserService.class.php");
 $ldapUserService = ldapUserService::getInstance();
 
 ?>
 
 <div class="container-fluid" style="margin-top: 100px;">
+
 <!-- head part of main page -->
 <?php include 'parts/header.php'; ?>
 
-<!-- First row which manage user -->
-<div class="row">
-    <div class="col-4">
+    <!-- First row which manage user -->
+    <div class="row">
 
-        <!-- Add form part -->
-        <?php include "parts/blocks/addUser.php"; ?>
+        <?php
+        $viewId = $_GET[viewUtil::$viewId];
+        $views = viewUtil::getView($viewId);
+        if(!empty($views)):
+            ?>
 
+            <div class="col-4">
+
+                <!-- Add form part -->
+                <?php include $views["form"]; ?>
+
+            </div>
+
+            <div class="col-8">
+
+                <!-- users list part -->
+                <?php include $views["list"]; ?>
+
+            </div>
+
+        <?php endif; ?>
     </div>
-
-    <div class="col-8">
-
-        <!-- users list part -->
-        <?php include "parts/blocks/usersList.php"; ?>
-
-    </div>
-</div>
 
 <!-- Footer part of main page -->
 <?php include 'parts/footer.php'; ?>

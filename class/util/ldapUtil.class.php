@@ -45,26 +45,32 @@ class ldapUtil
 
     public function clearLdap($recursive): bool
     {
-
-        $connect = ldapConnect::getInstance()->connect();
+        $ldapConnect = ldapConnect::getInstance();
+        $connect = $ldapConnect->connect();
         $dn = ldapConnect::$ldapBaseDn;
 
-        if ($recursive == false) {
-            return (ldap_delete($connect, $dn));
-        } else {
-            $sr = ldap_list($connect, $dn, "ObjectClass=*");
-            $entries = ldap_get_entries($connect, $sr);
-            $count = $entries['count'];
-            for ($i = 0; $i < $count; $i++) {
-                $result = $this->clearLdap($recursive);
-                if (!$result) {
-                    return $result;
+        if ($connect != null) {
+            if ($recursive == false) {
+                return (ldap_delete($connect, $dn));
+            } else {
+                $sr = ldap_list($connect, $dn, "ObjectClass=*");
+                $entries = ldap_get_entries($connect, $sr);
+                $count = $entries['count'];
+                for ($i = 0; $i < $count; $i++) {
+                    $result = $this->clearLdap($recursive);
+                    if (!$result) {
+                        return $result;
+                    }
                 }
+                $result = ldap_delete($connect, $dn);
             }
-            $result = ldap_delete($connect, $dn);
+            $ldapConnect->disconnect($connect);
+            return $result;
+        } else {
+            echo "LDAP connection failed..." . ldap_error($connect);
         }
-        return $result;
 
+        return false;
     }
 }
 

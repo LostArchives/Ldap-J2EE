@@ -12,13 +12,15 @@ class ldapUser
     private $surname;
     private $name;
     private $uid;
+    private $homeDirectory;
 
 
-    public function __construct($surname, $name, $uid)
+    public function __construct($surname, $name, $uid, $homeDirectory)
     {
         $this->surname = $surname;
         $this->name = $name;
         $this->uid = $uid;
+        $this->homeDirectory = $homeDirectory;
     }
 
     /**
@@ -67,6 +69,22 @@ class ldapUser
     public function setUid($uid)
     {
         $this->uid = $uid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeDirectory()
+    {
+        return $this->homeDirectory;
+    }
+
+    /**
+     * @param mixed $homeDirectory
+     */
+    public function setHomeDirectory($homeDirectory)
+    {
+        $this->homeDirectory = $homeDirectory;
     }
 
 }

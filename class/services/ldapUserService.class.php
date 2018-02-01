@@ -50,7 +50,7 @@ class ldapUserService
         $domainDn = ldapConnect::$ldapBaseDn;
         if ($connection != null) {
             $search_filter = '(objectClass=person)';
-            $attributes = ["givenname", "samaccountname", "sn", "uid"];
+            $attributes = ["givenname", "samaccountname", "sn", "uid", "homedirectory"];
             $result = ldap_search($connection, $domainDn, $search_filter, $attributes);
             if (FALSE !== $result) {
                 $entries = ldap_get_entries($connection, $result);
@@ -58,8 +58,9 @@ class ldapUserService
                     $surname = $entries[$cnt]["sn"][0];
                     $name = $entries[$cnt]["givenname"][0];
                     $uid = $entries[$cnt]["uid"][0];
+                    $homeDirectory = $entries[$cnt]["homedirectory"][0];
                     if (!empty($surname) && !empty($name)) {
-                        $user = new ldapUser($surname, $name, $uid);
+                        $user = new ldapUser($surname, $name, $uid, $homeDirectory);
                         $users[] = $user;
                     }
                 }

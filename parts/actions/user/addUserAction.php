@@ -8,6 +8,7 @@
 
 //getting ldap service
 include_once(dirname(__FILE__, 4) . "/class/services/ldapUserService.class.php");
+include_once(dirname(__FILE__, 4) . "/class/bean/ldapUser.class.php");
 $ldapUserService = ldapUserService::getInstance();
 
 // retrieving and checking data from add user form
@@ -21,6 +22,12 @@ if(!isset($_POST['userName'])){
 if(!isset($_POST['userSurname'])){
     $errors = "Please select correct user surname";
 }
+if(!isset($_POST['userDescription'])){
+    $errors = "Please select correct user's description";
+}
+if(!isset($_POST['userHomeDirectory'])){
+    $errors = "Please select correct user's home directory";
+}
 
 // check errors
 if(!empty($errors)){
@@ -32,8 +39,12 @@ if(!empty($errors)){
     // getting form data
     $userName = $_POST['userName'];
     $userSurname = $_POST['userSurname'];
+    $userDescription = $_POST['userDescription'];
+    $userHomeDirectory = $_POST['userHomeDirectory'];
 
-    $ldapUserService->addUser($userName, $userSurname);
+    $user = new ldapUser($userName, $userSurname, null, $userDescription, $userHomeDirectory);
+
+    $ldapUserService->addUser($user);
 
     // redirect to home page
     header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php');

@@ -10,7 +10,13 @@
 </head>
 <body>
 
-<?php include_once 'class/util/viewUtil.php'; ?>
+
+<?php
+
+include_once("class/ldapUserService.class.php");
+$ldapUserService = ldapUserService::getInstance();
+
+?>
 
 <div class="container-fluid" style="margin-top: 100px;">
 <!-- head part of main page -->
@@ -18,30 +24,19 @@
 
 <!-- First row which manage user -->
 <div class="row">
-
-
-<?php
-    $viewId = $_GET[viewUtil::$viewId];
-    $views = viewUtil::getView($viewId);
-
-    if(!empty($views)):
-?>
-
     <div class="col-4">
 
         <!-- Add form part -->
-        <?php include $views["form"]; ?>
+        <?php include "parts/blocks/addUser.php"; ?>
 
     </div>
 
     <div class="col-8">
 
         <!-- users list part -->
-        <?php include $views["list"]; ?>
+        <?php include "parts/blocks/usersList.php"; ?>
 
     </div>
-
-    <?php endif; ?>
 </div>
 
 <!-- Footer part of main page -->

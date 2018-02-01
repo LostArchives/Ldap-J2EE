@@ -25,6 +25,12 @@ if(!isset($_POST['userName'])){
 if(!isset($_POST['userSurname'])){
     $errors = "Please select correct user surname";
 }
+if(!isset($_POST['userDescription'])){
+    $errors = "Please select correct user's description";
+}
+if(!isset($_POST['userHomeDirectory'])){
+    $errors = "Please select correct user's home directory";
+}
 
 // check errors
 if(!empty($errors)){
@@ -37,8 +43,10 @@ if(!empty($errors)){
     $uid = $_POST['uid'];
     $userName = $_POST['userName'];
     $userSurname = $_POST['userSurname'];
+    $userDescription = $_POST['userDescription'];
+    $userHomeDirectory = $_POST['userHomeDirectory'];
 
-    $user = new ldapUser($userSurname, $userName, $uid);
+    $user = new ldapUser($userSurname, $userName, $uid, $userDescription, $userHomeDirectory);
 
     $ldapUserService->updateUser($user);
 

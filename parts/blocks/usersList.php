@@ -36,7 +36,7 @@ $users = ldapUserService::getInstance()->getUsers();
                 <a href="<?php echo 'http://' . $_SERVER["SERVER_NAME"] . '/ldap/index.php?uid=' . $user->getUid() . '&name=' . $user->getName() . '&surname=' . $user->getSurname(); ?>">
                     <button type="button" class="btn btn-warning">Update</button>
                 </a>
-                <a href="<?php echo './parts/actions/removeUserAction.php?uid=' . $user->getUid(); ?>">
+                <a href="<?php echo './parts/actions/user/removeUserAction.php?uid=' . $user->getUid(); ?>">
                     <button type="button" class="btn btn-danger">Remove</button>
                 </a>
             </td>

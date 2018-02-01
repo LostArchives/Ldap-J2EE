@@ -24,7 +24,7 @@ if (!isset($uid)):
 ?>
 
     <!-- Add user form -->
-<form action="parts/actions/addUserAction.php" method="post">
+    <form action="parts/actions/user/addUserAction.php" method="post">
     <div class="form-group">
         <label for="userName">Name</label>
         <input type="text" name="userName" class="form-control" id="userName" placeholder="Enter your name">
@@ -42,7 +42,7 @@ if (!isset($uid)):
 
 <h2>Update information of <?php echo $uid; ?></h2>
 <!-- Add user form -->
-<form action="parts/actions/updateUserAction.php" method="post">
+        <form action="parts/actions/user/updateUserAction.php" method="post">
     <input type="hidden" name="uid" value="<?php echo $uid; ?>">
     <div class="form-group">
         <label for="userName">Name</label>

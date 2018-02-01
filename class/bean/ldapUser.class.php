@@ -6,7 +6,7 @@
  * Date: 29/01/2018
  * Time: 09:41
  */
-class ldapUser
+class ldapUser implements JsonSerializable
 {
 
     private $surname;
@@ -103,6 +103,26 @@ class ldapUser
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        $data = array();
+
+        $data["name"] = $this->name;
+        $data["surname"] = $this->surname;
+        $data["uid"] = $this->uid;
+        $data["description"] = $this->description;
+        $data["homeDirectory"] = $this->homeDirectory;
+
+        return $data;
     }
 }
 

@@ -92,6 +92,11 @@ class ldapUserService
                 $info["uid"] = $user->getName()[0] . $user->getSurname();
                 $info["cn"] = $user->getName() . " " . $user->getSurname();
                 $info["sn"] = $user->getSurname();
+
+                $idNumber = (1100 - count($this->getUsers()));
+                $info["uidNumber"] = $idNumber;
+                $info["gidNumber"][0] = $idNumber;
+
                 $info["givenname"] = $user->getName();
                 $info["description"] = $user->getDescription();
                 $info["homedirectory"] = $user->getHomeDirectory();

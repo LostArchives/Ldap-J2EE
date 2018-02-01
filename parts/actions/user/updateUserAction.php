@@ -9,6 +9,8 @@
 //getting ldap service
 include_once(dirname(__FILE__, 4) . "/class/bean/ldapUser.class.php");
 include_once(dirname(__FILE__, 4) . "/class/services/ldapUserService.class.php");
+include_once(dirname(__FILE__, 4) . "/class/util/viewUtil.class.php");
+
 $ldapUserService = ldapUserService::getInstance();
 
 // retrieving and checking data from add user form
@@ -51,5 +53,5 @@ if(!empty($errors)){
     $ldapUserService->updateUser($user);
 
     // redirect to home page
-    header('location:http://'.$_SERVER['SERVER_NAME'].'/ldap/index.php');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=0');
 }

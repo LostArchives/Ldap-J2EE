@@ -6,6 +6,9 @@
  * Time: 3:44 PM
  */
 
+/**
+ * Class viewUtil created for template engine
+ */
 class viewUtil
 {
 

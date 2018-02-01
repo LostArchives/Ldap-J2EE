@@ -7,18 +7,18 @@
  */
 
 //getting ldap service
-include_once(dirname(__FILE__, 4) . "/class/services/ldapUserService.class.php");
+include_once(dirname(__FILE__, 4) . "/class/services/ldapGroupService.class.php");
 include_once(dirname(__FILE__, 4) . "/class/util/viewUtil.class.php");
 
-$ldapUserService = ldapUserService::getInstance();
+$ldapGroupService = ldapGroupService::getInstance();
 
 // retrieving and checking data from add user form
 // default empty array
 $errors = array();
 
 // check data
-if (!isset($_GET['uid'])) {
-    $errors = "uid not found";
+if (!isset($_GET['dn'])) {
+    $errors = "dn not found";
 }
 // check errors
 if (!empty($errors)) {
@@ -27,11 +27,11 @@ if (!empty($errors)) {
     <?php endforeach;
 } else {
 
-    // getting form data
-    $uid = $_GET['uid'];
+    // getting dn from form data
+    $dn = $_GET['dn'];
 
-    $ldapUserService->delUser($uid);
+    $ldapGroupService->delGroup($dn);
 
     // redirect to home page
-    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=0');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=1');
 }

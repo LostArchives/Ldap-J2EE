@@ -1,4 +1,4 @@
-<?php include_once 'class/util/viewUtil.php'; ?>
+<?php include_once 'class/util/viewUtil.class.php'; ?>
 
 <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="margin-bottom: 120px;">
     <div class="container">

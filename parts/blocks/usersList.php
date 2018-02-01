@@ -13,6 +13,7 @@ $users = ldapUserService::getInstance()->getUsers();
     <thead>
     <tr>
         <th scope="col">#</th>
+        <th scope="col">uid</th>
         <th scope="col">Surname</th>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
@@ -31,6 +32,7 @@ $users = ldapUserService::getInstance()->getUsers();
         ?>
         <tr>
             <th scope="row"><?php echo $counter; ?></th>
+            <td><?php echo $user->getUid(); ?></td>
             <td><?php echo $user->getSurname(); ?></td>
             <td><?php echo $user->getName(); ?></td>
             <td><?php echo $user->getDescription(); ?></td>

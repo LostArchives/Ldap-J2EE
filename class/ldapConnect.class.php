@@ -31,6 +31,29 @@ class ldapConnect
         return self::$instance;
     }
 
+    public function loginUser($login, $password): bool
+    {
+        $connection = $this->connect();
+        if ($connection != null) {
+            $search_filter = '(objectClass=person)';
+            $attributes = ["uid", "userpassword"];
+            $result = ldap_search($connection, self::$ldapBaseDn, $search_filter, $attributes);
+            if (FALSE !== $result) {
+                $entries = ldap_get_entries($connection, $result);
+                for ($cnt = 0; $cnt < count($entries); $cnt++) {
+                    $userLogin = $entries[$cnt]["uid"][0];
+                    $userPassword = $entries[$cnt]["userpassword"][0];
+                    if ($login == $userLogin && $password == $userPassword) {
+                        return true;
+                    }
+                }
+            }
+            $this->disconnect($connection);
+        } else {
+            echo "LDAP connection failed..." . ldap_error($connection);
+        }
+        return false;
+    }
 
     public function connect()
     {

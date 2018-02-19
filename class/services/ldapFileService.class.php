@@ -1,6 +1,8 @@
 <?php
 
 include_once(dirname(__FILE__, 2) . "/ldapConnect.class.php");
+include_once("ldapGroupService.class.php");
+include_once("ldapUserService.class.php");
 
 class ldapFileService
 {
@@ -28,7 +30,7 @@ class ldapFileService
         $connection = $this->ldapConnect->connect();
         $temp_memory = null;
         if ($connection != null) {
-            $search_filter = '(&(objectClass=*)';
+            $search_filter = '(objectClass=*)';
             $domainDn = ldapConnect::$ldapBaseDn;
             $result = ldap_search($connection, $domainDn, $search_filter);
             if (FALSE !== $result) {
@@ -70,6 +72,47 @@ class ldapFileService
         }
 
     }
+
+    public function importJson($json)
+    {
+        $content = json_decode($json, true);
+        $count = 0;
+        $userService = ldapUserService::getInstance();
+        foreach ($content as $key => $elem) {
+            if ($elem["dn"] != null) {
+                if (in_array('posixGroup', $elem['objectclass'])) {
+                    $groupName = $elem["cn"][0];
+                    //ldapGroupService::getInstance()->addGroup($groupName);
+                }
+                if (in_array('person', $elem['objectclass'])) {
+                    $surname = $elem["sn"][0];
+                    $name = $elem["givenname"][0];
+                    $uid = $name[0]. " ".$surname;
+                    $description = $elem["description"][0] == null ? "N/A" : $elem["description"][0];
+                    $homeDirectory = $elem["homedirectory"][0] == null ? "N/A" : $elem["homedirectory"][0];
+                    $ldapUser = new ldapUser($surname,$name,$uid,$description,$homeDirectory);
+                    $userService->addUser($ldapUser);
+                    $count++;
+                }
+            }
+        }
+        return $count;
+    }
+
+    public function isUploadValid($format)
+    {
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $fileType = pathinfo($target_file, PATHINFO_EXTENSION);
+
+        // Allow certain file formats
+        if ($fileType != $format) {
+            return false;
+        } else {
+            return file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
+        }
+    }
+
 }
 
 ?>

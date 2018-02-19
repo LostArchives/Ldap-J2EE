@@ -1,9 +1,10 @@
+<?php session_start(); ?>
 <?php include_once 'class/util/viewUtil.class.php'; ?>
-
 <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="margin-bottom: 120px;">
     <div class="container">
         <a href="../" class="navbar-brand">LDAP - GUI</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -13,21 +14,33 @@
                     <a class="nav-link" href="<?php echo "index.php"; ?>">Home</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?<?php echo viewUtil::$viewId.'=0'; ?>">Users</a>
+                    <a class="nav-link" href="?<?php echo viewUtil::$viewId . '=0'; ?>">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?<?php echo viewUtil::$viewId.'=1'; ?>">Groups</a>
+                    <a class="nav-link" href="?<?php echo viewUtil::$viewId . '=1'; ?>">Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?<?php echo viewUtil::$viewId . '=2'; ?>">Import / Export</a>
                 </li>
             </ul>
 
             <ul class="nav navbar-nav ml-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Username">
-                    <input class="form-control mr-sm-2" type="password" placeholder="Password">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
-                </form>
+                <?php if ($_SESSION["logged"]): ?>
+                    <a class="nav-link" href="#">User : Admin</a>
+                    <form action="parts/actions/user/logoutAction.php" class="form-inline my-2 my-lg-0" method="post">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+                    </form>
+                <?php else: ?>
+                    <form action="parts/actions/user/loginAction.php" class="form-inline my-2 my-lg-0" method="post">
+                        <input class="form-control mr-sm-2" type="text" name="login" placeholder="admin" disabled>
+                        <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
+                    </form>
+                <?php endif ?>
             </ul>
 
         </div>
     </div>
 </div>
+
+<?php include("messages.php") ?>

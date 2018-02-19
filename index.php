@@ -15,7 +15,6 @@
 
 include_once("class/services/ldapUserService.class.php");
 $ldapUserService = ldapUserService::getInstance();
-
 ?>
 
 <div class="container-fluid" style="margin-top: 100px;">

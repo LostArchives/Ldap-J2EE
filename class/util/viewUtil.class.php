@@ -33,6 +33,13 @@ class viewUtil
 
                 break;
 
+            case 2:
+
+                $data["form"] = "parts/blocks/fileImport.php";
+                $data["list"] = "parts/blocks/fileExport.php";
+
+                break;
+
             default:
 
                 break;

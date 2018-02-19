@@ -55,6 +55,13 @@ class ldapConnect
         return false;
     }
 
+    public function loginAdmin($password): bool
+    {
+        $ldapConn = $this->getConnection();
+        $bind = ldap_bind($ldapConn, $this->getBindUser(), $password);
+        return $bind;
+    }
+
     public function connect()
     {
         $ldapConn = $this->getConnection();

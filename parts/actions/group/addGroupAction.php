@@ -31,10 +31,8 @@ if(!empty($errors)){
     // getting form data
     $groupName = $_POST['groupName'];
 
-    //$ldapGroupService->addGroup($groupName);
-
-    $ldapGroupService->addUserToGroup('cn=linux,ou=group,dc=bla,dc=com', 'ivrogne');
+    $ldapGroupService->addGroup($groupName);
 
     // redirect to home page
-    //header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=1');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=1');
 }

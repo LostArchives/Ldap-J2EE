@@ -21,6 +21,7 @@ class ldapUserService
     private static $USER_TOP_CLASS = "top";
     private static $USER_PERSON_CLASS = "person";
     private static $USER_INET_CLASS = "inetOrgPerson";
+    private static $USER_POSIX_CLASS = "posixAccount";
 
     private static $instance;
     private $ldapConnect;
@@ -97,12 +98,14 @@ class ldapUserService
                 $info["uidNumber"] = $idNumber;
                 $info["gidNumber"][0] = $idNumber;
 
-                $info["givenname"] = $user->getName();
+                $info["givenName"] = $user->getName();
                 $info["description"] = $user->getDescription();
                 $info["homedirectory"] = $user->getHomeDirectory();
                 $info['objectClass'][0] = self::$USER_TOP_CLASS;
                 $info["objectClass"][1] = self::$USER_PERSON_CLASS;
                 $info["objectClass"][2] = self::$USER_INET_CLASS;
+                $info["objectClass"][3] = self::$USER_POSIX_CLASS;
+
 
                 $dn = $this->ldapUtil->buildUserDn($user->getSurname(), $user->getName());
                 // add data to directory

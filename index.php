@@ -19,16 +19,17 @@ $ldapUserService = ldapUserService::getInstance();
 
 <div class="container-fluid" style="margin-top: 100px;">
 
-<!-- head part of main page -->
-<?php include 'parts/header.php'; ?>
+    <!-- head part of main page -->
+    <?php include 'parts/header.php'; ?>
 
+    <?php if ($_SESSION["logged"]): ?>
     <!-- First row which manage user -->
     <div class="row">
 
         <?php
         $viewId = $_GET[viewUtil::$viewId];
         $views = viewUtil::getView($viewId);
-        if(!empty($views)):
+        if (!empty($views)):
             ?>
 
             <div class="col-4">
@@ -44,12 +45,12 @@ $ldapUserService = ldapUserService::getInstance();
                 <?php include $views["list"]; ?>
 
             </div>
-
+        <?php endif; ?>
         <?php endif; ?>
     </div>
 
-<!-- Footer part of main page -->
-<?php include 'parts/footer.php'; ?>
+    <!-- Footer part of main page -->
+    <?php include 'parts/footer.php'; ?>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>

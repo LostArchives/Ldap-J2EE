@@ -82,7 +82,8 @@ class ldapFileService
             if ($elem["dn"] != null) {
                 if (in_array('posixGroup', $elem['objectclass'])) {
                     $groupName = $elem["cn"][0];
-                    //ldapGroupService::getInstance()->addGroup($groupName);
+                    ldapGroupService::getInstance()->addGroup($groupName);
+                    $count++;
                 }
                 if (in_array('person', $elem['objectclass'])) {
                     $surname = $elem["sn"][0];

@@ -4,16 +4,16 @@ services:
 
   ldap:
     image: openldap
-    container_name: openldap1
+    #container_name: openldap1
     ports:
       - "389:389"
     dns: docker.ldap.com
 
   web:
     image: webappldap
-    container_name: webappldap1
+    #container_name: webappldap1
     ports:
-     - "8080:80"
+     - "80:80"
     depends_on:
       - ldap
     deploy:

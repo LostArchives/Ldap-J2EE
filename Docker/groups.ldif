@@ -1,0 +1,9 @@
+dn: ou=group,dc=bla,dc=com
+objectClass: organizationalUnit
+ou: group
+description: Unix group 
+
+dn: ou=people,dc=bla,dc=com
+objectClass: organizationalUnit
+ou: people
+description: Unix user

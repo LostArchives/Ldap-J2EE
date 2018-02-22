@@ -15,7 +15,7 @@ class ldapConnect
 
     public static $ldapBaseDn = "dc=bla,dc=com";
     private static $instance = null;
-    private $ldapHost = "localhost";
+    private $ldapHost = "ldap";
     private $ldapUser = "cn=admin";
     private $ldapPassword = "bla";
 

@@ -1,0 +1,21 @@
+FROM debian:jessie
+
+# docker build -t .
+# docker run -d --name openldap -p 389:389 openldap
+
+MAINTAINER Jérémy WILLIAME <jwilliame@scalair.fr>
+
+RUN apt-get update && LC_ALL=C DEBIAN_FRONTEND=noninteractive \
+        apt-get install -y \
+        ldap-utils \
+        slapd \
+        rsync \
+        --no-install-recommends \
+        && apt-get clean -y && rm -rf /var/lib/apt/lists/* 
+
+ENV LDAP_ROOTPASS=bla LDAP_ORGANIZATION="BLA CORP" LDAP_DOMAIN=bla.com
+
+COPY start.sh /start.sh
+COPY groups.ldif /groups.ldif
+
+ENTRYPOINT [ "/start.sh" ]

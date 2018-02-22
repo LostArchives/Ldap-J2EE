@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 : LDAP_ROOTPASS=${LDAP_ROOTPASS}

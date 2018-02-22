@@ -15,7 +15,9 @@ RUN apt-get update && LC_ALL=C DEBIAN_FRONTEND=noninteractive \
 
 ENV LDAP_ROOTPASS=bla LDAP_ORGANIZATION="BLA CORP" LDAP_DOMAIN=bla.com
 
+
 COPY start.sh /start.sh
+RUN chmod +x /start.sh
 COPY groups.ldif /groups.ldif
 
 ENTRYPOINT [ "/start.sh" ]

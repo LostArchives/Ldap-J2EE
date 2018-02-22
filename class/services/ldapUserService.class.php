@@ -141,7 +141,6 @@ class ldapUserService
 
                 // build dn with a known uid
                 $dn = $this->ldapUtil->buildUserDnWithUid($user->getUid());
-                echo $dn;
 
                 // update user by uid
                 $success = ldap_modify($connection, $dn, $info);

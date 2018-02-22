@@ -1,10 +1,10 @@
 all: openldap webappldap compose data
 
 openldap:
-	docker build -t openldap -f DockerfileLdap .
+	docker build --no-cache -t openldap -f DockerfileLdap .
 
 webappldap:
-	docker build -t webappldap -f DockerfileApp .
+	docker build --no-cache -t webappldap -f DockerfileApp .
 
 compose: openldap webappldap
 	docker-compose up &

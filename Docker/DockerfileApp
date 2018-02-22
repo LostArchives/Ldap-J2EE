@@ -1,0 +1,23 @@
+FROM php:7.0-apache
+
+MAINTAINER Jérôme Buisine
+
+# docker build -t webappldap -f DockerfileApp .
+# docker run -d --name webappldap -p 8080:80 webappldap
+
+ENV GIT_REPO_URL        https://github.com/LostArchives/Ldap-Php.git
+
+RUN apt-get update && \
+    apt-get install git -y && \
+    apt-get install nano vim -y &&\
+    apt-get install libldap2-dev -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+    docker-php-ext-install ldap &&\
+    apt-get clean
+
+RUN git clone $GIT_REPO_URL /var/www/html/ldap
+RUN chmod 775 -R ldap/
+RUN chown www-data -R ldap/
+RUN chgrp www-data -R ldap/
+RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf

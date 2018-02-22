@@ -21,3 +21,4 @@ RUN git clone $GIT_REPO_URL /var/www/html/ldap
 RUN chmod 775 -R ldap/
 RUN chown www-data -R ldap/
 RUN chgrp www-data -R ldap/
+RUN echo "127.0.0.1 web.ldap.com" >> /etc/hosts

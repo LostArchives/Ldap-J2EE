@@ -4,19 +4,25 @@ services:
 
   ldap:
     image: openldap
-    #container_name: openldap1
     ports:
       - "389:389"
-    dns: docker.ldap.com
 
   web:
     image: webappldap
-    #container_name: webappldap1
-    ports:
-     - "80:80"
     depends_on:
       - ldap
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
+    labels:
+        - "traefik.backend=ldap"
+        - "traefik.frontend.rule=Host:127.0.0.1"
+        - "traefik.backend.loadbalancer.stickiness=true"
+        - "traefik.port=80"
+
+  traefik:
+    image: traefik
+    command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml

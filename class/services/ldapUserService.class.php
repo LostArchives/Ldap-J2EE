@@ -144,7 +144,6 @@ class ldapUserService
 
                 // update user by uid
                 $success = ldap_modify($connection, $dn, $info);
-                echo ldap_error($connection);
 
             } else {
                 echo "User does not have correct fields";

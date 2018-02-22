@@ -220,7 +220,9 @@ class ldapGroupService
         if ($connection != null) {
             // delete user by uid
             $success = ldap_delete($connection, $dn);
-            echo ldap_error($connection);
+            if (!$success) {
+                echo ldap_error($connection);
+            }
         } else {
             echo "LDAP connection failed..." . ldap_error($connection);
         }

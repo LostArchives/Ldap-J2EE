@@ -12,7 +12,7 @@ include_once(dirname(__FILE__, 4) . "/class/util/viewUtil.class.php");
 $password = $_POST["password"];
 $success = false;
 $ldapConnect = ldapConnect::getInstance();
-echo $_SESSION["logged"];
+
 if (isset($password)) {
     $success = $ldapConnect->loginAdmin($password);
     if ($success) {

@@ -137,7 +137,6 @@ class ldapGroupService
                 if (!$success) {
                     echo ldap_error($connection);
                 }
-                echo ldap_error($connection);
             }
             $this->ldapConnect->disconnect($connection);
         } else {

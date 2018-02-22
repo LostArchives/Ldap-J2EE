@@ -112,7 +112,7 @@ class ldapUserService
                 $success = ldap_add($connection, $dn, $info);
 
                 if (!$success) {
-                    //echo ldap_error($connection);
+                    echo ldap_error($connection);
                 }
             }
             $this->ldapConnect->disconnect($connection);

@@ -179,6 +179,14 @@ class ldapUserService
         return $success;
     }
 
+    public function delAllUsers():bool {
+        $users = $this->getUsers();
+        foreach ($users as $user) {
+            $this->delUser($user->getUid());
+        }
+        return true;
+    }
+
     /**
      * Utils function which checks if user is empty or not
      *

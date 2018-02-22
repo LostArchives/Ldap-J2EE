@@ -227,6 +227,14 @@ class ldapGroupService
         return $success;
     }
 
+    public function delAllGroups(): bool {
+        $groups = $this->getGroups();
+        foreach($groups as $group) {
+            $this->delGroup($group->getDn());
+        }
+        return true;
+    }
+
     public function isGroupEmpty(ldapGroup $group): bool
     {
         return (empty($group->getName())

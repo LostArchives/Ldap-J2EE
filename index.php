@@ -48,13 +48,14 @@ $ldapUserService = ldapUserService::getInstance();
         <?php endif; ?>
         <?php endif; ?>
     </div>
-
     <!-- Footer part of main page -->
     <?php include 'parts/footer.php'; ?>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-confirmation.min.js"></script>
+<script src="js/main.js"></script>
 <script src="js/manageGroup.js"></script>
 
 </body>

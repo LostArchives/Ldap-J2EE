@@ -53,6 +53,9 @@ class ldapMessageUtil
             case "logout":
                 $message = "You have been logout successfully";
                 break;
+            case "clear":
+                $message = "Ldap cleared successfully";
+                break;
 
         }
         return $message;

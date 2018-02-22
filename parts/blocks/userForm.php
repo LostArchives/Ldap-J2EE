@@ -67,11 +67,11 @@ if (!isset($uid)):
         <input type="text" name="userSurname" class="form-control" id="userSurname" value="<?php echo (!empty($surname) ? $surname : 'Enter '.$uid.' surname'); ?>">
     </div>
     <div class="form-group">
-        <label for="userDescription">Surname</label>
+        <label for="userDescription">Description</label>
         <input type="text" name="userDescription" class="form-control" id="userDescription" value="<?php echo (!empty($description) ? $description : 'Enter '.$uid.' description'); ?>">
     </div>
     <div class="form-group">
-        <label for="userHomeDirectory">Surname</label>
+        <label for="userHomeDirectory">Home directory</label>
         <input type="text" name="userHomeDirectory" class="form-control" id="userHomeDirectory" value="<?php echo (!empty($homeDirectory) ? $homeDirectory : 'Enter '.$uid.' home directory'); ?>">
     </div>
     <button type="submit" class="btn btn-primary">Update user</button>

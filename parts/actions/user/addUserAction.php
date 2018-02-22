@@ -46,6 +46,6 @@ if(!empty($errors)){
     $user = new ldapUser($userName, $userSurname, null, $userDescription, $userHomeDirectory);
 
     $result = $ldapUserService->addUser($user);
-    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=0');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=0&message=true&type=success&action=add_user');
 
 }

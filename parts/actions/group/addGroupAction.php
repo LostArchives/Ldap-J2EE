@@ -34,5 +34,5 @@ if(!empty($errors)){
     $ldapGroupService->addGroup($groupName);
 
     // redirect to home page
-    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=1');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=1&message=true&type=success&action=update_group');
 }

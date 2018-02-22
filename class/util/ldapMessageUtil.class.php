@@ -29,7 +29,7 @@ class ldapMessageUtil
             case "add_user":
                 $message = "User added successfully";
                 break;
-            case "modifiy_user":
+            case "update_user":
                 $message = "User modified successfully";
                 break;
             case "delete_user":
@@ -38,7 +38,7 @@ class ldapMessageUtil
             case "add_group":
                 $message = "Group added successfully";
                 break;
-            case "modify_group":
+            case "update_group":
                 $message = "Group modified successfully";
                 break;
             case "delete_group":

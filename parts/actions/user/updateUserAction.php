@@ -53,5 +53,5 @@ if(!empty($errors)){
     $ldapUserService->updateUser($user);
 
     // redirect to home page
-    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=0');
+    header('location:http://' . $_SERVER['SERVER_NAME'] . '/ldap/index.php?'. viewUtil::$viewId. '=0&message=true&type=success&action=update_user');
 }

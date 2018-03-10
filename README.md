@@ -18,7 +18,7 @@ cd Docker
 make
 ```
 
-Two containers will run behind. You can access the container server at this address : [Web interface](127.0.0.1:80/ldap).
+Two containers will run behind. You can access the container server at this address : [Web interface](http://127.0.0.1:80/ldap).
 
 ## Web interface
 
